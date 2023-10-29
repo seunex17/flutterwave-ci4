@@ -1,0 +1,29 @@
+{
+    "name": "seunex17/flutterwave-ci4",
+    "description": "Flutterwave v3 for codeigniter4",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Seunex17\\FlutterwaveCi4\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "seunex17",
+            "email": "seunexseun@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require-dev": {
+        "codeigniter4/devkit": "^1.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    },
+    "scripts": {
+        "cs-fix": "php-cs-fixer fix --ansi --verbose --diff"
+    }
+}
