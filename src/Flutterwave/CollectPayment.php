@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Seunex17\FlutterwaveCi4\Payment;
+namespace Seunex17\FlutterwaveCi4\Flutterwave;
 
 use CodeIgniter\HTTP\RedirectResponse;
 use Config\Services;
@@ -19,7 +19,7 @@ class CollectPayment
         $flutterwave = new Flutterwave();
         $client      = Services::curlrequest();
 
-        $request = $client->request('POST', "{$flutterwave->baseUrl}//payments", [
+        $request = $client->request('POST', "{$flutterwave->baseUrl}/payments", [
             'headers' => [
                 'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
             ],

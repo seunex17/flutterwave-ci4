@@ -61,7 +61,7 @@ Create a .env file and follow the format of the `env` file
 Save your PUBLIC_KEY, SECRET_KEY in the `.env` file
 
 ```bash
-cp .env.example .env
+cp env .env
 ```
 
 Your `.env` file should look this.
@@ -83,7 +83,6 @@ FLUTTERWAVE_PAYMENT_LOGO=<YOUR BUSINESS LOGO URL>
 he SDK provides you with the easy methods of making collections via the hosted flutterwave standard method.
 
 ```php 
-  $payment = new CollectPayment();
    $data = [
 	  'tx_ref' => time(), // Can be replace with your unique ref code
 	  'amount' => '500',
@@ -97,5 +96,33 @@ he SDK provides you with the easy methods of making collections via the hosted f
 	  'redirect_url' => base_url('verify'),
 	];
 
-	return $payment::payment($data);
+	return CollectPayment::payment($data);
+```
+
+Next after collecting payment from our customer. In the above request we set a redirect page where flutterwave will send our user to either complete payment or cancel it.
+In the redrected page (method) add this below code to verify you payment. 
+
+```php
+   if (!$txn = $this->request->getGet('transaction_id'))
+   {
+	  // Payment was cancel by customer or another thing else.
+	  // Redirect user to error page
+	  return 'payment was cancel';
+   }
+
+   try
+   {
+	  $response = Verification::transaction($txn);
+	  echo '<pre>';
+	  var_dump($response);
+	  echo '</pre>';
+
+	  // the response above give you an array of the transaction report
+	  // You can now access each report value like this: $response->amount
+	  // Remember to check if amount paid is same as you product amount.
+   }
+   catch (\Exception $e)
+   {
+      return $e->getMessage();
+   }
 ```
