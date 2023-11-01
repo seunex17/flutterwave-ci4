@@ -14,7 +14,7 @@ class CollectPayment
     /**
      * @throws Exception
      */
-    public static function payment(array $data): RedirectResponse
+    public static function standard(array $data): RedirectResponse
     {
         $flutterwave = new Flutterwave();
         $client      = Services::curlrequest();

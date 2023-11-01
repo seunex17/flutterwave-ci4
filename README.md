@@ -96,7 +96,7 @@ he SDK provides you with the easy methods of making collections via the hosted f
 	  'redirect_url' => base_url('verify'),
 	];
 
-	return CollectPayment::payment($data);
+	return CollectPayment::standard($data);
 ```
 
 Next after collecting payment from our customer. In the above request we set a redirect page where flutterwave will send our user to either complete payment or cancel it.
