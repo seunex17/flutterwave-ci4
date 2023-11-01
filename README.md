@@ -99,8 +99,34 @@ he SDK provides you with the easy methods of making collections via the hosted f
 	return CollectPayment::standard($data);
 ```
 
-Next after collecting payment from our customer. In the above request we set a redirect page where flutterwave will send our user to either complete payment or cancel it.
-In the redrected page (method) add this below code to verify you payment. 
+### Card charge
+
+You can also charge customer card directly from you website using the Card charge method.
+
+```php 
+   $data = [
+	  'card_number' => "***************",
+	  'cvv' => '564',
+	  'expiry_month' => '09',
+	  'expiry_year' => '24',
+	  'redirect_url' => base_url('verify'),
+	  'currency' => 'NGN', // or EUR or GBP for EU Collection.
+	  'amount' => '500',
+	  'fullname' => 'John Doe',
+	  'email' => 'john@mail.com',
+	  'tx_ref' => time(), // Can be replace with your unique ref code
+    ];
+
+    echo '<pre>';
+    var_dump(CollectPayment::card($data));
+    echo '<pre>';
+```
+
+### Verify transaction
+
+Next after collecting payment from our customer. In the above request we set a redirect page where flutterwave will send
+our user to either complete payment or cancel it.
+In the redrected page (method) add this below code to verify you payment.
 
 ```php
    if (!$txn = $this->request->getGet('transaction_id'))

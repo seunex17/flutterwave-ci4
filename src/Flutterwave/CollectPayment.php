@@ -50,4 +50,40 @@ class CollectPayment
 
         return redirect()->to($response->data->link);
     }
+
+    /**
+     * @throws Exception
+     */
+    public static function card()
+    {
+        $flutterwave = new Flutterwave();
+        $client      = Services::curlrequest();
+
+        $request = $client->request('POST', "{$flutterwave->baseUrl}/charges?type=card", [
+            'headers' => [
+                'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
+            ],
+            'json' => [
+                'card_number'  => $data['card_number'] ?? null,
+                'cvv'          => $data['cvv'] ?? null,
+                'expiry_month' => $data['expiry_month'] ?? null,
+                'expiry_year'  => $data['expiry_year'] ?? null,
+                'currency'     => $data['currency'] ?? null,
+                'amount'       => $data['amount'] ?? null,
+                'fullname'     => $data['fullname'] ?? null,
+                'email'        => $data['email'] ?? null,
+                'tx_ref'       => $data['tx_ref'] ?? null,
+                'redirect_url' => $data['redirect_url'] ?? null,
+            ],
+            'http_errors' => false,
+        ]);
+
+        $response = json_decode($request->getBody());
+
+        if ($request->getStatusCode() !== 200) {
+            throw new Exception($response->message);
+        }
+
+        return $response;
+    }
 }
