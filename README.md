@@ -32,6 +32,8 @@ Available features include:
 2. [Installation](#installation)
 3. [Initialization](#initialization)
 4. [Usage](#usage)
+5. [Contributing](#contribution-guidelines)
+6. [License](#license)
 
 <a id="requirements"></a>
 
@@ -152,3 +154,22 @@ In the redrected page (method) add this below code to verify you payment.
       return $e->getMessage();
    }
 ```
+
+<a id="contribution-guidelines"></a>
+
+## Contribution guidelines
+this library is open for public to contribute.
+
+
+<a id="license"></a>
+
+## License
+
+By contributing to this library, you agree that your contributions will be licensed under its [MIT license](/LICENSE).
+
+<a id="references"></a>
+
+## Flutterwave API  References
+
+- [Flutterwave API Documentation](https://developer.flutterwave.com)
+- [Flutterwave Dashboard](https://app.flutterwave.com)  
