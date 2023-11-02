@@ -1,6 +1,7 @@
 {
     "name": "seunex17/flutterwave-ci4",
     "description": "Flutterwave v3 for codeigniter4",
+    "license": "MIT",
     "type": "library",
     "autoload": {
         "psr-4": {
