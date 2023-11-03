@@ -124,6 +124,30 @@ You can also charge customer card directly from you website using the Card charg
     echo '<pre>';
 ```
 
+### Tokenized Charge
+
+the feature allow you to charge customer card. It is usually used for recurring payment. Where you can automatically charge customer card without physical interaction.
+Customer must first make a payment on your website. After the payment was successful you can securely store teh customer card token in you database. 
+This token will be used to chage customer card. And take note that the token must match the customer email every time you want to initiate a tokenized charge.
+
+```php
+  $data = [
+      'token' => "flw-t1nf-2dd950bd8f3c966d5a5453128c1ed517-m03k",
+      'country' => 'NG',
+      'first_name' => 'John',
+      'last_name' => "Doe",
+      'currency' => 'NGN',
+      'tx_ref' => time(),
+      'amount' => '500',
+      'email' => 'johndoe@mail.com',
+      'narration' => 'Cable subscription'
+   ];
+
+   echo '<pre>';
+   var_dump(CollectPayment::tokenizeCharge($data));
+   echo '<pre>';
+```
+
 ### Verify transaction
 
 Next after collecting payment from our customer. In the above request we set a redirect page where flutterwave will send

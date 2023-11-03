@@ -1,22 +1,19 @@
 <?php
 
-	if (!function_exists('generateDeviceFingerprint'))
-	{
-		/**
-		 * @return string
-		 */
-		function generateDeviceFingerprint()
-		: string
-		{
-			$userAgent = $_SERVER['HTTP_USER_AGENT'];
-			$ipAddress = $_SERVER['REMOTE_ADDR'];
-			$language = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-			$screenResolution = $_SERVER['HTTP_USER_AGENT'];
+declare(strict_types=1);
 
-			$combinedString = $userAgent . $ipAddress . $language . $screenResolution;
+if (! function_exists('generateDeviceFingerprint')) {
+    function generateDeviceFingerprint(): string
+    {
+        $userAgent        = $_SERVER['HTTP_USER_AGENT'];
+        $ipAddress        = $_SERVER['REMOTE_ADDR'];
+        $language         = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+        $screenResolution = $_SERVER['HTTP_USER_AGENT'];
 
-			$fingerprint = md5($combinedString);
+        $combinedString = $userAgent . $ipAddress . $language . $screenResolution;
 
-			return $fingerprint;
-		}
-	}
+        $fingerprint = md5($combinedString);
+
+        return $fingerprint;
+    }
+}

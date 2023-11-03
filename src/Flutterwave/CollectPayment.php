@@ -87,41 +87,74 @@ class CollectPayment
         return $response;
     }
 
+    /**
+     * @throws Exception
+     */
+    public static function bankTransfer(array $data)
+    {
+        $flutterwave = new Flutterwave();
+        $client      = Services::curlrequest();
+        $requests    = Services::request();
+        helper('flutterwave');
 
-	/**
-	 * @throws \Exception
-	 */
-	public static function bankTransfer(array $data)
-	 {
-		 $flutterwave = new Flutterwave();
-		 $client      = Services::curlrequest();
-		 $requests = Services::request();
-		 helper('flutterwave');
+        $request = $client->request('POST', "{$flutterwave->baseUrl}/charges?type=bank_transfer", [
+            'headers' => [
+                'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
+            ],
+            'json' => [
+                'phone_number'       => $data['phone_number'] ?? null,
+                'client_ip'          => $requests->getIPAddress(),
+                'device_fingerprint' => generateDeviceFingerprint(),
+                'narration'          => $data['narration'] ?? null,
+                'currency'           => $data['currency'] ?? null,
+                'amount'             => $data['amount'] ?? null,
+                'is_permanent'       => false,
+                'email'              => $data['email'] ?? null,
+                'tx_ref'             => $data['tx_ref'] ?? null,
+            ],
+            'http_errors' => false,
+        ]);
 
-		 $request = $client->request('POST', "{$flutterwave->baseUrl}/charges?type=bank_transfer", [
-			 'headers' => [
-				 'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
-			 ],
-			 'json' => [
-				 'phone_number'  => $data['phone_number'] ?? null,
-				 'client_ip'          => $requests->getIPAddress(),
-				 'device_fingerprint' => generateDeviceFingerprint(),
-				 'narration'  => $data['narration'] ?? null,
-				 'currency'     => $data['currency'] ?? null,
-				 'amount'       => $data['amount'] ?? null,
-				 'is_permanent'     => false,
-				 'email'        => $data['email'] ?? null,
-				 'tx_ref'       => $data['tx_ref'] ?? null,
-			 ],
-			 'http_errors' => false,
-		 ]);
+        $response = json_decode($request->getBody());
 
-		 $response = json_decode($request->getBody());
+        if ($request->getStatusCode() !== 200) {
+            throw new Exception($response->message);
+        }
 
-		 if ($request->getStatusCode() !== 200) {
-			 throw new Exception($response->message);
-		 }
+        return $response;
+    }
 
-		 return $response;
-	 }
+    public static function tokenizeCharge(array $data)
+    {
+        $flutterwave = new Flutterwave();
+        $client      = Services::curlrequest();
+        $requests    = Services::request();
+
+        $request = $client->request('POST', "{$flutterwave->baseUrl}/tokenized-charges", [
+            'headers' => [
+                'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
+            ],
+            'json' => [
+                'token'      => $data['token'] ?? null,
+                'country'    => $data['country'],
+                'first_name' => $data['first_name'] ?? null,
+                'last_name'  => $data['last_name'] ?? null,
+                'currency'   => $data['currency'] ?? null,
+                'amount'     => $data['amount'] ?? null,
+                'ip'         => $requests->getIPAddress(),
+                'email'      => $data['email'] ?? null,
+                'tx_ref'     => $data['tx_ref'] ?? null,
+                'narration'  => $data['narration'] ?? null,
+            ],
+            'http_errors' => false,
+        ]);
+
+        $response = json_decode($request->getBody());
+
+        if ($request->getStatusCode() !== 200) {
+            throw new Exception($response->message);
+        }
+
+        return $response;
+    }
 }
