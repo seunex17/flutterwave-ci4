@@ -23,12 +23,12 @@ class Transaction
 	/**
 	 * @throws \Exception
 	 */
-	public static function refund(string $references, int $amount)
+	public static function refund(string $transactionId, int $amount)
     {
         $flutterwave = new Flutterwave();
         $client      = Services::curlrequest();
 
-        $request = $client->request('POST', "{$flutterwave->baseUrl}/charges/{$references}/refund", [
+        $request = $client->request('POST', "{$flutterwave->baseUrl}/transactions/{$transactionId}/refund", [
             'headers' => [
                 'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
             ],
@@ -41,7 +41,7 @@ class Transaction
         $response = json_decode($request->getBody());
 
         if ($request->getStatusCode() !== 200) {
-            throw new Exception($response->message);
+            throw new Exception($response->data);
         }
 
         return $response;

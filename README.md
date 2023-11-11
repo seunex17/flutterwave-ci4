@@ -182,13 +182,13 @@ In the redrected page (method) add this below code to verify you payment.
 ### Refund a transaction
 
 Whenever your customer pay you, it is advisable to store the transaction information return by flutterwave.
-To create a refund we needed the amount paid and flutterwave references (flw_ref).
+To create a refund we needed the amount paid and transaction id (transaction_id).
 
 ```php
-  $flutterwaveRef = "FLW-MOCK-a728cc7f95ecff4bc92388a2f1f69cc3";
+  $transactionId = "4717164";
   $amount = 500;
 
-  Transaction::refund($flutterwaveRef, $amount);
+  Transaction::refund($transactionId, $amount);
 ```
 
 <a id="contribution-guidelines"></a>
