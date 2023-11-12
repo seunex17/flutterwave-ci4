@@ -70,4 +70,28 @@ class Transaction
 
         return $response->data;
     }
+
+    /**
+     * @throws Exception
+     */
+    public static function refunds()
+    {
+        $flutterwave = new Flutterwave();
+        $client      = Services::curlrequest();
+
+        $request = $client->request('GET', "{$flutterwave->baseUrl}/refunds", [
+            'headers' => [
+                'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
+            ],
+            'http_errors' => false,
+        ]);
+
+        $response = json_decode($request->getBody());
+
+        if ($request->getStatusCode() !== 200) {
+            throw new Exception($response->message);
+        }
+
+        return $response->data;
+    }
 }
