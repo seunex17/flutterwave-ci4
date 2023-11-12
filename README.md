@@ -191,6 +191,14 @@ To create a refund we needed the amount paid and transaction id (transaction_id)
   Transaction::refund($transactionId, $amount);
 ```
 
+### List all transactions
+
+You can retrieve all transaction carried out on you flutterwave account.
+
+```php
+  $transactions = Transaction::list(); // This return an object of array.
+```
+
 <a id="contribution-guidelines"></a>
 
 ## Contribution guidelines
