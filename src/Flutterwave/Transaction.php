@@ -20,6 +20,8 @@ use Seunex17\FlutterwaveCi4\Config\Flutterwave;
 
 class Transaction
 {
+    private $transferFeeObjects;
+
     /**
      * @throws Exception
      */
@@ -93,5 +95,57 @@ class Transaction
         }
 
         return $response->data;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function fees(array $data)
+    {
+        $instance    = new self();
+        $flutterwave = new Flutterwave();
+        $client      = Services::curlrequest();
+
+        $request = $client->request('GET', "{$flutterwave->baseUrl}/transactions/fee", [
+            'headers' => [
+                'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
+            ],
+            'query'       => $data,
+            'http_errors' => false,
+        ]);
+
+        $response = json_decode($request->getBody());
+
+        if ($request->getStatusCode() !== 200) {
+            throw new Exception($response->message);
+        }
+
+        $instance->transferFeeObjects = $response->data;
+
+        return $instance;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function merchantFee()
+    {
+        return $this->transferFeeObjects->merchant_fee;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function flutterwaveFee()
+    {
+        return $this->transferFeeObjects->flutterwave_fee;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function stampDutyFee()
+    {
+        return $this->transferFeeObjects->stamp_duty_fee;
     }
 }

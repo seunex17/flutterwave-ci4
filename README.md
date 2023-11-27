@@ -208,6 +208,43 @@ You can retrieve all refunded transactions carried out on you flutterwave accoun
   $refunds = Transaction::refunds(); // This return an object of array.
 ```
 
+### Get transaction fee
+
+This methods helps you to query the fees expected to be paid for a particular transaction. This methods only returns fees for collections i.e. inflows.
+
+#### Flutterwave Fee
+
+```php
+  $data = [
+      'amount' => 500,
+      'currency' => 'NGN',
+   ];
+			
+  Transaction::fees($data)->flutterwaveFee();
+```
+
+#### Merchant Fee
+
+```php
+  $data = [
+      'amount' => 500,
+      'currency' => 'NGN',
+   ];
+			
+  Transaction::fees($data)->merchantFee();
+```
+
+#### Stamp duty Fee
+
+```php
+  $data = [
+      'amount' => 500,
+      'currency' => 'NGN',
+   ];
+			
+  Transaction::fees($data)->stampDutyFee();
+```
+
 <a id="contribution-guidelines"></a>
 
 ## Contribution guidelines
