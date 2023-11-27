@@ -28,6 +28,7 @@
         "cs-fix": "php-cs-fixer fix --ansi --verbose --diff"
     },
 	"require": {
-		"ext-json": "*"
+		"ext-json": "*",
+       "php": ">=7.4"
 	}
 }
