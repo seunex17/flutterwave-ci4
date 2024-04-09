@@ -126,9 +126,12 @@ You can also charge customer card directly from you website using the Card charg
 
 ### Tokenized Charge
 
-the feature allow you to charge customer card. It is usually used for recurring payment. Where you can automatically charge customer card without physical interaction.
-Customer must first make a payment on your website. After the payment was successful you can securely store teh customer card token in you database. 
-This token will be used to chage customer card. And take note that the token must match the customer email every time you want to initiate a tokenized charge.
+the feature allow you to charge customer card. It is usually used for recurring payment. Where you can automatically
+charge customer card without physical interaction.
+Customer must first make a payment on your website. After the payment was successful you can securely store teh customer
+card token in you database.
+This token will be used to chage customer card. And take note that the token must match the customer email every time
+you want to initiate a tokenized charge.
 
 ```php
   $data = [
@@ -165,9 +168,7 @@ In the redrected page (method) add this below code to verify you payment.
    try
    {
 	  $response = Verification::transaction($txn);
-	  echo '<pre>';
-	  var_dump($response);
-	  echo '</pre>';
+	  echo $response->status();
 
 	  // the response above give you an array of the transaction report
 	  // You can now access each report value like this: $response->amount
@@ -178,6 +179,39 @@ In the redrected page (method) add this below code to verify you payment.
       return $e->getMessage();
    }
 ```
+
+#### Available methods for accessing verified transaction
+
+| Method            | Type   | Description                                                         |
+|-------------------|--------|---------------------------------------------------------------------|
+| id                | int    | Return the id of the transaction                                    |
+| transactionRef    | string | Return the transaction references                                   |
+| flutterwaveRef    | string | Flutterwave transaction references                                  |
+| deviceFingerprint | string | Return the device fingerptin of the customer                        |
+| amount            | float  | Return the amount set by the merchant                               |
+| currency          | string | Return the ISO currency of the transaction                          |
+| chargeAmount      | float  | Return the actual amount paid by teh customer                       |
+| fee               | float  | Return the application fee impose by flutterwave on teh transaction |
+| merchantFee       | float  | Return the flutterwave charged the merchant not the customer        |
+| processorResponse | string | Return the payment processor response                               |
+| authModel         | string | Return the payment auth model                                       |
+| ipAddress         | string | Return the ip address of teh customer                               |
+| narration         | string | Return the narration of the transaction                             |
+| status            | string | Return the transaction status                                       |
+| paymentType       | string | Retun the payment type e.g card, ussd, bank, etc                    |
+| accountId         | int    | Return teh flutterwave account id number                            |
+| firstCardPan      | string | Return the customer card first six digit                            |
+| lastCardPan       | string | Return teh customer card last four digit                            |
+| cardIssuer        | String | Return the customer card issuer                                     |
+| cardCountry       | string | Return the country name of the card                                 |
+| cardType          | string | Return teh customer card type                                       |
+| cardToken         | string | Return the token of the  card issue by flutterwave                  |
+| cardExpire        | string | Return the card expiration date                                     |
+| meta              | object | Return teh customer data you set when initializing the payment      |
+| amountSettled     | float  | Return the total amount settle to the merchant account              |
+| customerEmail     | string | Return customer email address                                       |
+| customerName      | string | Return customer full name                                           |
+| customerPhone     | string | Return customer phone number                                        |
 
 ### Refund a transaction
 
@@ -199,7 +233,6 @@ You can retrieve all transactions carried out on you flutterwave account.
   $transactions = Transaction::list(); // This return an object of array.
 ```
 
-
 ### List all refunds
 
 You can retrieve all refunded transactions carried out on you flutterwave account.
@@ -210,7 +243,8 @@ You can retrieve all refunded transactions carried out on you flutterwave accoun
 
 ### Get transaction fee
 
-This methods helps you to query the fees expected to be paid for a particular transaction. This methods only returns fees for collections i.e. inflows.
+This methods helps you to query the fees expected to be paid for a particular transaction. This methods only returns
+fees for collections i.e. inflows.
 
 #### Flutterwave Fee
 
@@ -248,8 +282,8 @@ This methods helps you to query the fees expected to be paid for a particular tr
 <a id="contribution-guidelines"></a>
 
 ## Contribution guidelines
-this library is open for public to contribute.
 
+this library is open for public to contribute.
 
 <a id="license"></a>
 
