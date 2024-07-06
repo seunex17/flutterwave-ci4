@@ -17,7 +17,8 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
-        "codeigniter4/devkit": "^1.1"
+        "codeigniter4/devkit": "^1.1",
+        "phpunit/phpunit": "^9.1"
     },
     "config": {
         "allow-plugins": {
@@ -25,7 +26,8 @@
         }
     },
     "scripts": {
-        "cs-fix": "php-cs-fixer fix --ansi --verbose --diff"
+        "cs-fix": "php-cs-fixer fix --ansi --verbose --diff",
+        "test": "phpunit"
     },
 	"require": {
 		"ext-json": "*",

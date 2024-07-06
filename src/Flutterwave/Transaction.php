@@ -43,7 +43,7 @@ class Transaction
         $response = json_decode($request->getBody());
 
         if ($request->getStatusCode() !== 200) {
-            throw new Exception($response->data);
+            throw new Exception($response->message);
         }
 
         return $response;
@@ -91,6 +91,10 @@ class Transaction
         $response = json_decode($request->getBody());
 
         if ($request->getStatusCode() !== 200) {
+            if ($response->message === 'Not Found') {
+                return [];
+            }
+
             throw new Exception($response->message);
         }
 
