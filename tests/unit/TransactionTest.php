@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 /**
-     * Copyright (C) ZubDev Digital Media - All Rights Reserved
-     *
-     * File: TransactionTest.php
-     * Author: Zubayr Ganiyu
-     *   Email: <seunexseun@gmail.com>
-     *   Website: https://zubdev.net
-     * Date: 7/6/24
-     * Time: 5:11 PM
-     */
+ * Copyright (C) ZubDev Digital Media - All Rights Reserved
+ *
+ * File: TransactionTest.php
+ * Author: Zubayr Ganiyu
+ *   Email: <seunexseun@gmail.com>
+ *   Website: https://zubdev.net
+ * Date: 7/6/24
+ * Time: 5:11 PM
+ */
 
 namespace unit;
 

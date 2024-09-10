@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 /**
-     * Copyright (C) ZubDev Digital Media - All Rights Reserved
-     *
-     * File: Webhook.php
-     * Author: Zubayr Ganiyu
-     *   Email: <seunexseun@gmail.com>
-     *   Website: https://zubdev.net
-     * Date: 7/7/24
-     * Time: 11:01 AM
-     */
+ * Copyright (C) ZubDev Digital Media - All Rights Reserved
+ *
+ * File: Webhook.php
+ * Author: Zubayr Ganiyu
+ *   Email: <seunexseun@gmail.com>
+ *   Website: https://zubdev.net
+ * Date: 7/7/24
+ * Time: 11:01 AM
+ */
 
 namespace Seunex17\FlutterwaveCi4\Flutterwave;
 

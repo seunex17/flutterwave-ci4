@@ -24,12 +24,13 @@ class CollectPayment
                 'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
             ],
             'json' => [
-                'tx_ref'       => (string) $data['tx_ref'] ?? null,
-                'amount'       => $data['amount'] ?? null,
-                'currency'     => $data['currency'] ?? null,
-                'meta'         => $data['meta'] ?? null,
-                'redirect_url' => $data['redirect_url'] ?? null,
-                'customer'     => [
+                'tx_ref'          => (string) $data['tx_ref'] ?? null,
+                'amount'          => $data['amount'] ?? null,
+                'currency'        => $data['currency'] ?? null,
+                'meta'            => $data['meta'] ?? null,
+                'payment_options' => $data['payment_options'] ?? null,
+                'redirect_url'    => $data['redirect_url'] ?? null,
+                'customer'        => [
                     'email'       => $data['customer_email'] ?? null,
                     'phonenumber' => $data['customer_phone'] ?? null,
                     'name'        => $data['customer_name'] ?? null,
