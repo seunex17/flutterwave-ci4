@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace unit;
 
 use CodeIgniter\Test\CIUnitTestCase;
+use CodeIgniter\Test\TestResponse;
 use Exception;
 use Seunex17\FlutterwaveCi4\Flutterwave\CollectPayment;
 
@@ -41,7 +42,7 @@ final class CollectPaymentTest extends CIUnitTestCase
             'redirect_url'   => base_url('verify'),
         ];
 
-        $result = new \CodeIgniter\Test\TestResponse(CollectPayment::standard($data));
+        $result = new TestResponse(CollectPayment::standard($data));
         $result->assertRedirect();
     }
 
@@ -74,5 +75,18 @@ final class CollectPaymentTest extends CIUnitTestCase
         ];
 
         $this->assertObjectHasProperty('data', CollectPayment::tokenizeCharge($data));
+    }
+
+    public function testMobileMoneyUganda(): void
+    {
+        $data = [
+            'phone_number' => '08000000000',
+            'amount'       => '10',
+            'email'        => 'john@mail.com',
+            'tx_ref'       => time(),
+        ];
+
+        $result = new TestResponse(CollectPayment::mobileMoneyUganda($data));
+        $result->assertRedirect();
     }
 }

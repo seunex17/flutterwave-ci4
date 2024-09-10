@@ -157,4 +157,37 @@ class CollectPayment
 
         return $response;
     }
+
+    /**
+     * @throws Exception
+     */
+    public static function mobileMoneyUganda(array $data): RedirectResponse
+    {
+        $flutterwave = new Flutterwave();
+        $client      = Services::curlrequest();
+
+        $request = $client->request('POST', "{$flutterwave->baseUrl}/charges?type=mobile_money_uganda", [
+            'headers' => [
+                'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
+            ],
+            'json' => [
+                'tx_ref'       => (string) $data['tx_ref'] ?? null,
+                'amount'       => $data['amount'] ?? null,
+                'currency'     => 'UGX',
+                'meta'         => $data['meta'] ?? null,
+                'phone_number' => $data['phone_number'] ?? null,
+                'redirect_url' => $data['redirect_url'] ?? null,
+                'email'        => $data['email'] ?? null,
+            ],
+            'http_errors' => false,
+        ]);
+
+        $response = json_decode($request->getBody());
+
+        if ($request->getStatusCode() !== 200) {
+            throw new Exception($response->message);
+        }
+
+        return redirect()->to($response->meta->authorization->redirect);
+    }
 }
