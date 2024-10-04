@@ -16,9 +16,9 @@ namespace Seunex17\FlutterwaveCi4\Flutterwave;
 
 use Config\Services;
 use Exception;
-use Seunex17\FlutterwaveCi4\Config\Flutterwave;
+use Seunex17\FlutterwaveCi4\FlutterwaveConfig;
 
-class Transaction
+class Transaction extends FlutterwaveConfig
 {
     private $transferFeeObjects;
 
@@ -27,10 +27,9 @@ class Transaction
      */
     public static function refund(string $transactionId, int $amount)
     {
-        $flutterwave = new Flutterwave();
-        $client      = Services::curlrequest();
+        $client = Services::curlrequest();
 
-        $request = $client->request('POST', "{$flutterwave->baseUrl}/transactions/{$transactionId}/refund", [
+        $request = $client->request('POST', self::BASE_URL . "/transactions/{$transactionId}/refund", [
             'headers' => [
                 'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
             ],
@@ -54,12 +53,11 @@ class Transaction
      */
     public static function list()
     {
-        $flutterwave = new Flutterwave();
-        $client      = Services::curlrequest();
+        $client = Services::curlrequest();
 
-        $request = $client->request('GET', "{$flutterwave->baseUrl}/transactions", [
+        $request = $client->request('GET', self::BASE_URL . '/transactions', [
             'headers' => [
-                'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
+                'Authorization' => 'Bearer ' . self::secretKey(),
             ],
             'http_errors' => false,
         ]);
@@ -78,12 +76,11 @@ class Transaction
      */
     public static function refunds()
     {
-        $flutterwave = new Flutterwave();
-        $client      = Services::curlrequest();
+        $client = Services::curlrequest();
 
-        $request = $client->request('GET', "{$flutterwave->baseUrl}/refunds", [
+        $request = $client->request('GET', self::BASE_URL . '/refunds', [
             'headers' => [
-                'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
+                'Authorization' => 'Bearer ' . self::secretKey(),
             ],
             'http_errors' => false,
         ]);
@@ -106,11 +103,10 @@ class Transaction
      */
     public static function fees(array $data)
     {
-        $instance    = new self();
-        $flutterwave = new Flutterwave();
-        $client      = Services::curlrequest();
+        $instance = new self();
+        $client   = Services::curlrequest();
 
-        $request = $client->request('GET', "{$flutterwave->baseUrl}/transactions/fee", [
+        $request = $client->request('GET', self::BASE_URL . '/transactions/fee', [
             'headers' => [
                 'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
             ],

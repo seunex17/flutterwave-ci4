@@ -16,9 +16,9 @@ namespace Seunex17\FlutterwaveCi4\Flutterwave;
 
 use Config\Services;
 use Exception;
-use Seunex17\FlutterwaveCi4\Config\Flutterwave;
+use Seunex17\FlutterwaveCi4\FlutterwaveConfig;
 
-class Verification
+class Verification extends FlutterwaveConfig
 {
     private $data;
 
@@ -29,12 +29,11 @@ class Verification
     {
         $instance = new self();
 
-        $flutterwave = new Flutterwave();
-        $client      = Services::curlrequest();
+        $client = Services::curlrequest();
 
-        $request = $client->request('GET', "{$flutterwave->baseUrl}/transactions/{$id}/verify", [
+        $request = $client->request('GET', self::BASE_URL . "/transactions/{$id}/verify", [
             'headers' => [
-                'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
+                'Authorization' => 'Bearer ' . self::secretKey(),
                 'Content-Type'  => 'application/json',
             ],
             'http_errors' => false,

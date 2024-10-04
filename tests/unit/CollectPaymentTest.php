@@ -63,7 +63,7 @@ final class CollectPaymentTest extends CIUnitTestCase
     public function testTokenizePayment(): void
     {
         $data = [
-            'token'      => 'flw-t1nf-2dd950bd8f3c966d5a5453128c1ed517-m03k',
+            'token'      => 'flw-t1nf-89c2596defdb83fbd1798ab4f95515a1-m03k',
             'country'    => 'NG',
             'first_name' => 'John',
             'last_name'  => 'Doe',

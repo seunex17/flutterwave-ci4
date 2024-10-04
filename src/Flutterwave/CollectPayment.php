@@ -8,20 +8,21 @@ use CodeIgniter\HTTP\RedirectResponse;
 use Config\Services;
 use Exception;
 use Seunex17\FlutterwaveCi4\Config\Flutterwave;
+use Seunex17\FlutterwaveCi4\FlutterwaveConfig;
 
-class CollectPayment
+class CollectPayment extends FlutterwaveConfig
 {
     /**
      * @throws Exception
      */
     public static function standard(array $data): RedirectResponse
     {
-        $flutterwave = new Flutterwave();
-        $client      = Services::curlrequest();
+        $client = Services::curlrequest();
+        $config = new Flutterwave();
 
-        $request = $client->request('POST', "{$flutterwave->baseUrl}/payments", [
+        $request = $client->request('POST', self::BASE_URL . '/payments', [
             'headers' => [
-                'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
+                'Authorization' => 'Bearer ' . self::secretKey(),
             ],
             'json' => [
                 'tx_ref'          => (string) $data['tx_ref'] ?? null,
@@ -36,8 +37,8 @@ class CollectPayment
                     'name'        => $data['customer_name'] ?? null,
                 ],
                 'customizations' => [
-                    'title' => env('FLUTTERWAVE_PAYMENT_TITLE'),
-                    'logo'  => env('FLUTTERWAVE_PAYMENT_LOGO'),
+                    'title' => self::paymentTitle(),
+                    'logo'  => self::paymentLogo(),
                 ],
             ],
             'http_errors' => false,
@@ -57,12 +58,11 @@ class CollectPayment
      */
     public static function card(array $data)
     {
-        $flutterwave = new Flutterwave();
-        $client      = Services::curlrequest();
+        $client = Services::curlrequest();
 
-        $request = $client->request('POST', "{$flutterwave->baseUrl}/charges?type=card", [
+        $request = $client->request('POST', self::BASE_URL . '/charges?type=card', [
             'headers' => [
-                'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
+                'Authorization' => 'Bearer ' . self::secretKey(),
             ],
             'json' => [
                 'card_number'  => $data['card_number'] ?? null,
@@ -93,14 +93,13 @@ class CollectPayment
      */
     public static function bankTransfer(array $data)
     {
-        $flutterwave = new Flutterwave();
-        $client      = Services::curlrequest();
-        $requests    = Services::request();
+        $client   = Services::curlrequest();
+        $requests = Services::request();
         helper('flutterwave');
 
-        $request = $client->request('POST', "{$flutterwave->baseUrl}/charges?type=bank_transfer", [
+        $request = $client->request('POST', self::BASE_URL . '/charges?type=bank_transfer', [
             'headers' => [
-                'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
+                'Authorization' => 'Bearer ' . self::secretKey(),
             ],
             'json' => [
                 'phone_number'       => $data['phone_number'] ?? null,
@@ -127,13 +126,12 @@ class CollectPayment
 
     public static function tokenizeCharge(array $data)
     {
-        $flutterwave = new Flutterwave();
-        $client      = Services::curlrequest();
-        $requests    = Services::request();
+        $client   = Services::curlrequest();
+        $requests = Services::request();
 
-        $request = $client->request('POST', "{$flutterwave->baseUrl}/tokenized-charges", [
+        $request = $client->request('POST', self::BASE_URL . '/tokenized-charges', [
             'headers' => [
-                'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
+                'Authorization' => 'Bearer ' . self::secretKey(),
             ],
             'json' => [
                 'token'      => $data['token'] ?? null,
@@ -163,12 +161,11 @@ class CollectPayment
      */
     public static function mobileMoneyUganda(array $data): RedirectResponse
     {
-        $flutterwave = new Flutterwave();
-        $client      = Services::curlrequest();
+        $client = Services::curlrequest();
 
-        $request = $client->request('POST', "{$flutterwave->baseUrl}/charges?type=mobile_money_uganda", [
+        $request = $client->request('POST', self::BASE_URL . '/charges?type=mobile_money_uganda', [
             'headers' => [
-                'Authorization' => 'Bearer ' . env('FLUTTERWAVE_SECRET_KEY'),
+                'Authorization' => 'Bearer ' . self::secretKey(),
             ],
             'json' => [
                 'tx_ref'       => (string) $data['tx_ref'] ?? null,

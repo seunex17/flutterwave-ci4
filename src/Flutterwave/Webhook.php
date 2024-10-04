@@ -15,8 +15,9 @@ declare(strict_types=1);
 namespace Seunex17\FlutterwaveCi4\Flutterwave;
 
 use Config\Services;
+use Seunex17\FlutterwaveCi4\FlutterwaveConfig;
 
-class Webhook
+class Webhook extends FlutterwaveConfig
 {
     private $data;
 
@@ -41,7 +42,7 @@ class Webhook
 
         $secret = $request->getHeaderLine('verif-hash');
 
-        return ! ($secret !== env('FLUTTERWAVE_WEBHOOK_SECRET'));
+        return ! ($secret !== self::webhookSecret());
     }
 
     public static function webhookEvent()
