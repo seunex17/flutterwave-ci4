@@ -15,7 +15,7 @@ class CollectPayment extends FlutterwaveConfig
     /**
      * @throws Exception
      */
-    public static function standard(array $data): RedirectResponse
+    public static function standard(array $data, bool $redirect = true)
     {
         $client = Services::curlrequest();
         $config = new Flutterwave();
@@ -50,7 +50,12 @@ class CollectPayment extends FlutterwaveConfig
             throw new Exception($response->message);
         }
 
-        return redirect()->to($response->data->link);
+		  if ($redirect)
+		  {
+			  return redirect()->to($response->data->link);
+		  }
+
+		  return json_encode($response);
     }
 
     /**
