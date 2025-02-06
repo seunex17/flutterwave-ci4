@@ -50,12 +50,11 @@ class CollectPayment extends FlutterwaveConfig
             throw new Exception($response->message);
         }
 
-		  if ($redirect)
-		  {
-			  return redirect()->to($response->data->link);
-		  }
+        if ($redirect) {
+            return redirect()->to($response->data->link);
+        }
 
-		  return json_encode($response);
+        return json_encode($response);
     }
 
     /**
@@ -116,6 +115,7 @@ class CollectPayment extends FlutterwaveConfig
                 'is_permanent'       => false,
                 'email'              => $data['email'] ?? null,
                 'tx_ref'             => (string) $data['tx_ref'] ?? null,
+                'fullname'           => $data['fullname'] ?? null,
             ],
             'http_errors' => false,
         ]);

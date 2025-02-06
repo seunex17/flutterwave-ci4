@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 /**
-     * Copyright (C) ZubDev Digital Media - All Rights Reserved
-     *
-     * File: FlutterwavePublishCommand.php
-     * Author: Zubayr Ganiyu
-     *   Email: <seunexseun@gmail.com>
-     *   Website: https://zubdev.net
-     * Date: 10/4/24
-     * Time: 7:42 AM
-     */
+ * Copyright (C) ZubDev Digital Media - All Rights Reserved
+ *
+ * File: FlutterwavePublishCommand.php
+ * Author: Zubayr Ganiyu
+ *   Email: <seunexseun@gmail.com>
+ *   Website: https://zubdev.net
+ * Date: 10/4/24
+ * Time: 7:42 AM
+ */
 
 namespace Seunex17\FlutterwaveCi4\Commands;
 
@@ -91,8 +91,6 @@ class FlutterwavePublishCommand extends BaseCommand
 
     /**
      * Determines the current source path from which all other files are located.
-     *
-     * @return void
      */
     protected function determineSourcePath(): void
     {
@@ -108,8 +106,6 @@ class FlutterwavePublishCommand extends BaseCommand
     /**
      * Write a file, catching any exceptions and showing a
      * nicely formatted error.
-     *
-     * @return void
      */
     protected function writeFile(string $path, string $content): void
     {
