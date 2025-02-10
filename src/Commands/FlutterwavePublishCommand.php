@@ -52,7 +52,7 @@ class FlutterwavePublishCommand extends BaseCommand
     /**
      * the Command's options description
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $options = [
         '-f' => 'Force overwrite all existing files in destination',

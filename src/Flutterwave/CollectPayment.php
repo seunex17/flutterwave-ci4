@@ -13,9 +13,13 @@ use Seunex17\FlutterwaveCi4\FlutterwaveConfig;
 class CollectPayment extends FlutterwaveConfig
 {
     /**
+     * @param array<string, mixed> $data
+     *
+     * @return array<string, mixed>|RedirectResponse
+     *
      * @throws Exception
      */
-    public static function standard(array $data, bool $redirect = true)
+    public static function standard(array $data, bool $redirect = true): array|RedirectResponse
     {
         $client = Services::curlrequest();
         $config = new Flutterwave();
@@ -54,7 +58,7 @@ class CollectPayment extends FlutterwaveConfig
             return redirect()->to($response->data->link);
         }
 
-        return json_encode($response);
+        return (array) $response;
     }
 
     /**
